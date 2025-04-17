@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="static\styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Comparison</title>
+  </head>
+  <body>
+    <div class="container">
+      <center><h1>Comparison of Machine Learning Models</h1><center/>
+
+      <section>
+        <h2>Purpose</h2>
+        <p>
+          This page presents a comparative analysis of two machine learning
+          models used to solve a classification problem. The goal is to evaluate
+          them based on accuracy, interpretability, and suitability for
+          deployment.
+        </p>
+      </section>
+
+      <section class="grid">
+        <div class="card" style="color:black">
+          <h3 style="color:black">Model 1: Logistic Regression</h3>
+          <p><strong>Type:</strong> Linear</p>
+          <p><strong>Training Time:</strong> Fast</p>
+          <p><strong>Best for:</strong> Linearly separable data</p>
+        </div>
+        <div class="card" style="color:black">
+          <h3 style="color:black">Model 2: Random Forest</h3>
+          <p><strong>Type:</strong> Ensemble</p>
+          <p><strong>Training Time:</strong> Moderate</p>
+          <p><strong>Best for:</strong> Non-linear complex data</p>
+        </div>
+      </section>
+
+      <section style="color:black">
+        <h2>Performance Metrics</h2>
+        <table>
+          <thead>
+            <tr style="color:black">
+              <th>Metric</th>
+              <th>Logistic Regression</th>
+              <th>Random Forest</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="color:black">
+              <td>Accuracy</td>
+              <td>82.5%</td>
+              <td>88.1%</td>
+            </tr>
+            <tr style="color:black">
+              <td>Precision</td>
+              <td>80.2%</td>
+              <td>85.6%</td>
+            </tr>
+            <tr style="color:black">
+              <td>Recall</td>
+              <td>78.9%</td>
+              <td>87.3%</td>
+            </tr>
+            <tr style="color:black">
+              <td>F1 Score</td>
+              <td>79.5%</td>
+              <td>86.4%</td>
+            </tr>
+            <tr style="color:black">
+              <td>ROC-AUC Score</td>
+              <td>0.84</td>
+              <td>0.91</td>
+            </tr>
+            <tr style="color:black">
+              <td>Cross-validation Score</td>
+              <td>81.9%</td>
+              <td>87.7%</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Visualization of Results</h2>
+        <div class="img-grid">
+          <div class="row">
+            <div class="img-container">
+              <img
+                src="static\confusion_matrix_logreg.png"
+                alt="Confusion Matrix - Logistic Regression"
+              />
+              <div class="img-title">
+                Confusion Matrix - Logistic Regression
+              </div>
+            </div>
+            <div class="img-container">
+              <img
+                src="static\confusion_matrix_rf.png"
+                alt="Confusion Matrix - Random Forest"
+              />
+              <div class="img-title">Confusion Matrix - Random Forest</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="img-container">
+              <img
+                src="static\featureimportance_logreg.png"
+                alt="Feature Importance - Logistic Regression"
+              />
+              <div class="img-title">
+                Feature Importance - Logistic Regression
+              </div>
+            </div>
+            <div class="img-container">
+              <img
+                src="static\featureimportance_rf.png"
+                alt="Feature Importance - Random Forest"
+              />
+              <div class="img-title">Feature Importance - Random Forest</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="img-container">
+              <img src="static\roccurve.png" alt="ROC Curves" />
+              <div class="img-title">ROC Curve Comparison</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Interpretability</h2>
+        <table>
+          <thead>
+            <tr style="color:black">
+              <th>Aspect</th>
+              <th>Logistic Regression</th>
+              <th>Random Forest</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="color:black">
+              <td>Easy to Interpret</td>
+              <td>✔️</td>
+              <td>❌</td>
+            </tr>
+            <tr style="color:black">
+              <td>Feature Importance</td>
+              <td>➖</td>
+              <td>✔️</td>
+            </tr>
+            <tr style="color:black">
+              <td>Black-box Model</td>
+              <td>❌</td>
+              <td>✔️</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Deployment Readiness</h2>
+        <table>
+          <thead>
+            <tr style="color:black">
+              <th>Aspect</th>
+              <th>Logistic Regression</th>
+              <th>Random Forest</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="color:black">
+              <td>Inference Time</td>
+              <td>Fast</td>
+              <td>Moderate</td>
+            </tr>
+            <tr style="color:black">
+              <td>Memory Usage</td>
+              <td>Low</td>
+              <td>Higher</td>
+            </tr>
+            <tr style="color:black">
+              <td>Suitable for Web/API</td>
+              <td>✔️</td>
+              <td>✔️</td>
+            </tr>
+            <tr style="color:black">
+              <td>Ease of Deployment</td>
+              <td>✔️</td>
+              <td>⚠️</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="conclusion highlighted">
+        <h2 style="font-size:30px">Conclusion</h2>
+        <p>
+          While Logistic Regression is simpler and easier to interpret, Random
+          Forest provides better overall accuracy and robustness. Depending on
+          the deployment constraints and performance needs, Random Forest is the
+          more powerful model for this task.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>

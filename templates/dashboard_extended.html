@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Employee Attrition and HR Analytics Interactive Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(to bottom right, #1e3a8a, #1e40af, #172554);
+      }
+      nav {
+        background-color: #212529;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        gap: 1.5rem;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      section {
+        display: none;
+        padding: 2rem;
+      }
+      section.active {
+        display: block;
+      }
+      form input,
+      form button {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        width: 250px;
+        display: block;
+      }
+      form button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      h2 {
+        color: #333;
+      }
+      iframe {
+        width: 100%;
+        height: 600px;
+        border: none;
+      }
+      .result {
+        background: #fff;
+        border-left: 5px solidrgb(32, 33, 65);
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a onclick="showSection('report')">📊 Power BI Dashboard</a>
+      <a onclick="showSection('attrition')">📉 Attrition Prediction</a>
+      <a href="{{ url_for('model_comparison') }}">🎯 Model Comparison</a>
+      <a
+        href="{{ url_for('login') }}"
+        style="margin-left: auto; display: flex; align-items: center"
+      >
+        <span style="color: red; font-size: 24px; font-weight: bold">⏻ </span>
+        Log Out
+      </a>
+    </nav>
+
+    <!-- 1. Power BI Dashboard -->
+    <section
+      id="report"
+      class="{% if active_section == 'report' %}active{% endif %}"
+    >
+      <h2
+        style="
+          color: white;
+          font-family: Cambria, serif;
+          font-size: 40px;
+          text-align: center;
+        "
+      >
+        Dashboard
+      </h2>
+      <iframe
+        title="Employee_Attrition"
+        src="https://app.powerbi.com/reportEmbed?reportId=8554b80a-3260-4b48-afe8-ddfc1dae0517&autoAuth=true&ctid=23035d1f-133c-44b5-b2ad-b3aef17baaa1"
+        allowfullscreen="true"
+      >
+      </iframe>
+    </section>
+
+    <!-- 2. Attrition Prediction -->
+    <section
+      id="attrition"
+      class="{% if active_section == 'attrition' %}active{% endif %}"
+      style="text-align: center; color: white"
+    >
+      <h2 style="color: white; font-family: Cambria, serif; font-size: 40px">
+        Attrition Prediction
+      </h2>
+      <form
+        method="POST"
+        action="/attrition"
+        style="display: inline-block; text-align: left"
+      >
+        <label for="age">Age:</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          required
+          style="
+            display: block;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+            width: 250px;
+            font-size: 20px;
+            font-family: Cambria, serif;
+          "
+        />
+
+        <label for="monthly_income">Monthly Income:</label>
+        <input
+          type="number"
+          id="monthly_income"
+          name="monthly_income"
+          required
+          style="
+            display: block;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+            width: 250px;
+            font-size: 20px;
+            font-family: Cambria, serif;
+          "
+        />
+
+        <label for="overtime">OverTime (Yes/No):</label>
+        <input
+          type="text"
+          id="overtime"
+          name="overtime"
+          required
+          style="
+            display: block;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+            width: 250px;
+            font-size: 20px;
+            font-family: Cambria, serif;
+          "
+        />
+
+        <label for="years_at_company">Years at Company:</label>
+        <input
+          type="number"
+          id="years_at_company"
+          name="years_at_company"
+          required
+          style="
+            display: block;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+            width: 250px;
+            font-size: 20px;
+          "
+        />
+
+        <button
+          type="submit"
+          style="
+            margin: 1rem auto;
+            padding: 0.5rem 1rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            width: 300px;
+          "
+        >
+          Predict Attrition
+        </button>
+      </form>
+      {% if attrition_result %}
+      <div
+        class="result"
+        style="
+          margin-top: 1rem;
+          background: rgba(231, 200, 41, 0.89);
+          padding: 1rem;
+          border-radius: 5px;
+        "
+      >
+        Prediction: {{ attrition_result }}
+      </div>
+      {% endif %}
+    </section>
+
+    <script>
+      function showSection(id) {
+        document
+          .querySelectorAll("section")
+          .forEach((sec) => sec.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+      }
+
+      // Auto-show section after post
+      showSection("{{ active_section }}");
+    </script>
+
+    <!-- Hidden Microsoft login to enable Power BI autoAuth -->
+    <iframe
+      src="https://login.microsoftonline.com/common/oauth2/authorize?client_id=81412377-dc3d-41df-80df-4c41c35fef9f&response_type=id_token"
+      style="display: none"
+    >
+    </iframe>
+  </body>
+</html>
